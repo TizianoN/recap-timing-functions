@@ -1,19 +1,20 @@
 let watchingInterval;
-
 const videoEl = document.getElementById('main-video');
 
-videoEl.addEventListener('play', initAreYouWatching)
-videoEl.addEventListener('pause', clearAreYouWatching)
+videoEl.addEventListener('play', initWatchingInterval);
+videoEl.addEventListener('pause', clearWatchingInterval);
 
-function initAreYouWatching() {
-    setInterval(function () {
-        videoEl.pause();
-        if (confirm('are you still here?')) {
-            videoEl.play();
-        }
-    }, 3 * 1000)
+function isUserWatching() {
+    videoEl.pause();
+    if (confirm('are you still here?')) {
+        videoEl.play();
+    }
 }
 
-function clearAreYouWatching() {
+function initWatchingInterval() {
+    watchingInterval = setInterval(isUserWatching, 3 * 1000);
+}
+
+function clearWatchingInterval() {
     clearInterval(watchingInterval);
 }
